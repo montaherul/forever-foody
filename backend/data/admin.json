@@ -1,0 +1,5 @@
+{
+  "email": "admin@forever.com",
+  "password": "admin123",
+  "note": "Use these credentials to log in to the admin panel. Make sure to set ADMIN_EMAIL and ADMIN_PASSWORD in your .env file with these values."
+}
