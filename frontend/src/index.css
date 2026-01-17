@@ -8,11 +8,69 @@
    MOBILE-FIRST RESPONSIVE DESIGN
    ======================================== */
 
+:root {
+  color-scheme: light;
+}
+
+.dark {
+  color-scheme: dark;
+}
+
 /* Base mobile styles */
 body {
   overflow-x: hidden; /* Prevent horizontal scroll */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #ffffff;
+  color: #0f172a;
+  transition: background-color 200ms ease, color 200ms ease;
+}
+
+.dark body {
+  background-color: #0b1220;
+  color: #e2e8f0;
+}
+
+/* Global dark-mode overrides for common Tailwind utility colors */
+@layer base {
+  .dark .bg-white {
+    background-color: #0f172a !important;
+  }
+  .dark .bg-gray-50 {
+    background-color: #0b1220 !important;
+  }
+  .dark .bg-gray-100 {
+    background-color: #0f172a !important;
+  }
+  .dark .text-gray-700,
+  .dark .text-gray-600,
+  .dark .text-gray-500,
+  .dark .text-gray-400 {
+    color: #e2e8f0 !important;
+  }
+  .dark .border-gray-100,
+  .dark .border-gray-200,
+  .dark .border-gray-300 {
+    border-color: #1f2937 !important;
+  }
+  .dark .shadow,
+  .dark .shadow-md,
+  .dark .shadow-lg,
+  .dark .shadow-xl,
+  .dark .shadow-2xl {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55) !important;
+  }
+  .dark input,
+  .dark textarea,
+  .dark select {
+    background-color: #0f172a;
+    border-color: #1f2937;
+    color: #e2e8f0;
+  }
+  .dark input::placeholder,
+  .dark textarea::placeholder {
+    color: #94a3b8;
+  }
 }
 
 /* Responsive container */
@@ -151,5 +209,10 @@ select {
   a.active {
     background-color: #22c55e;
     color: white;
+  }
+}
+@media (max-width: 640px) {
+  a.active hr {
+    display: none;
   }
 }

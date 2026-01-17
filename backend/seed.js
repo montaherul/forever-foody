@@ -25,9 +25,9 @@ const seedDatabase = async () => {
     const users = await userModel.insertMany(userData);
     console.log(`✓ ${users.length} users inserted`);
 
-    // Insert orders
-    const orders = await orderModel.insertMany(orderData);
-    console.log(`✓ ${orders.length} orders inserted`);
+    // Skip orders for now (comment out to enable)
+    // const orders = await orderModel.insertMany(orderData);
+    // console.log(`✓ ${orders.length} orders inserted`);
 
     console.log("\n✓ Database seeded successfully!");
     process.exit(0);

@@ -134,23 +134,33 @@ const PlaceOrder = () => {
         addressSource,
         coupon: appliedCoupon || null,
         couponSavings,
+        paymentMethod: method,
       };
 
       switch (method) {
         case "cod":
+        case "bkash":
+        case "nagad": {
           const response = await axios.post(
             `${backendUrl}/api/order/place`,
             orderData,
             { headers: { token } }
           );
           if (response.data.success) {
-            toast.success("Order placed successfully!");
+            const msg =
+              method === "cod"
+                ? "Order placed successfully!"
+                : "Order placed. Complete payment via " +
+                  (method === "bkash" ? "bKash" : "Nagad") +
+                  " to confirm.";
+            toast.success(msg);
             setCartItems({});
             navigate("/orders");
           } else {
             toast.error(response.data.message);
           }
           break;
+        }
         default:
           toast.error("Payment method not available");
           break;
@@ -358,62 +368,54 @@ const PlaceOrder = () => {
               </h2>
 
               <div className="space-y-3">
-                {/* Cash on Delivery */}
-                <button
-                  type="button"
-                  onClick={() => setMethod("cod")}
-                  className={`w-full flex items-center gap-4 p-5 rounded-xl border-2 transition-all duration-300 ${
-                    method === "cod"
-                      ? "border-green-600 bg-green-50"
-                      : "border-gray-300 bg-white hover:border-green-400"
-                  }`}
-                >
-                  <div
-                    className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
-                      method === "cod"
-                        ? "border-green-600 bg-green-600"
-                        : "border-gray-400"
+                {[
+                  {
+                    key: "cod",
+                    title: "Cash on Delivery",
+                    description: "Pay when your order arrives at your doorstep",
+                  },
+                  {
+                    key: "bkash",
+                    title: "bKash",
+                    description:
+                      "Pay securely via bKash after placing the order",
+                  },
+                  {
+                    key: "nagad",
+                    title: "Nagad",
+                    description:
+                      "Pay securely via Nagad after placing the order",
+                  },
+                ].map((option) => (
+                  <button
+                    key={option.key}
+                    type="button"
+                    onClick={() => setMethod(option.key)}
+                    className={`w-full flex items-center gap-4 p-5 rounded-xl border-2 transition-all duration-300 ${
+                      method === option.key
+                        ? "border-green-600 bg-green-50"
+                        : "border-gray-300 bg-white hover:border-green-400"
                     }`}
                   >
-                    {method === "cod" && (
-                      <div className="w-2 h-2 bg-white rounded-full"></div>
-                    )}
-                  </div>
-                  <div className="flex-1 text-left">
-                    <p className="font-bold text-gray-900">Cash on Delivery</p>
-                    <p className="text-sm text-gray-600">
-                      Pay when your order arrives at your doorstep
-                    </p>
-                  </div>
-                </button>
-
-                {/* Stripe Option - Disabled */}
-                <button
-                  type="button"
-                  disabled
-                  onClick={() => setMethod("stripe")}
-                  className="w-full flex items-center gap-4 p-5 rounded-xl border-2 border-gray-300 bg-gray-50 opacity-50 cursor-not-allowed"
-                >
-                  <div className="w-6 h-6 rounded-full border-2 border-gray-400"></div>
-                  <div className="flex-1 text-left">
-                    <p className="font-bold text-gray-900">Stripe</p>
-                    <p className="text-sm text-gray-600">Coming soon</p>
-                  </div>
-                </button>
-
-                {/* Razorpay Option - Disabled */}
-                <button
-                  type="button"
-                  disabled
-                  onClick={() => setMethod("razorpay")}
-                  className="w-full flex items-center gap-4 p-5 rounded-xl border-2 border-gray-300 bg-gray-50 opacity-50 cursor-not-allowed"
-                >
-                  <div className="w-6 h-6 rounded-full border-2 border-gray-400"></div>
-                  <div className="flex-1 text-left">
-                    <p className="font-bold text-gray-900">Razorpay</p>
-                    <p className="text-sm text-gray-600">Coming soon</p>
-                  </div>
-                </button>
+                    <div
+                      className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
+                        method === option.key
+                          ? "border-green-600 bg-green-600"
+                          : "border-gray-400"
+                      }`}
+                    >
+                      {method === option.key && (
+                        <div className="w-2 h-2 bg-white rounded-full"></div>
+                      )}
+                    </div>
+                    <div className="flex-1 text-left">
+                      <p className="font-bold text-gray-900">{option.title}</p>
+                      <p className="text-sm text-gray-600">
+                        {option.description}
+                      </p>
+                    </div>
+                  </button>
+                ))}
               </div>
             </div>
           </div>
@@ -469,3 +471,4 @@ const PlaceOrder = () => {
 };
 
 export default PlaceOrder;
+

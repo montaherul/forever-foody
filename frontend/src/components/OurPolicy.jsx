@@ -3,7 +3,7 @@ import { assets } from "../assets/assets";
 
 const OurPolicy = () => {
   return (
-    <div className="flex flex-col sm:flex-row justify-around gap-12 sm:gap-2 text-center py-20 text-xs sm:text-sm md:text-base text-gray-700 bg-green-50 rounded-2xl my-10">
+    <div className="flex flex-col sm:flex-row justify-around gap-12 sm:gap-2 text-center py-20 text-xs sm:text-sm md:text-base text-gray-700 dark:text-slate-300 bg-green-50 dark:bg-slate-800/50 rounded-2xl my-10">
       <div className="group hover:scale-105 transition-transform">
         <div className="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center m-auto mb-5 group-hover:bg-green-700 transition-colors">
           <svg
@@ -20,8 +20,10 @@ const OurPolicy = () => {
             />
           </svg>
         </div>
-        <p className="font-bold text-green-900 text-lg">Same Day Delivery</p>
-        <p className="text-gray-600 mt-2">
+        <p className="font-bold text-green-900 dark:text-green-400 text-lg">
+          Same Day Delivery
+        </p>
+        <p className="text-gray-600 dark:text-slate-400 mt-2">
           Order before 2 PM for same day delivery
         </p>
       </div>
@@ -41,8 +43,10 @@ const OurPolicy = () => {
             />
           </svg>
         </div>
-        <p className="font-bold text-green-900 text-lg">100% Fresh Guarantee</p>
-        <p className="text-gray-600 mt-2">
+        <p className="font-bold text-green-900 dark:text-green-400 text-lg">
+          100% Fresh Guarantee
+        </p>
+        <p className="text-gray-600 dark:text-slate-400 mt-2">
           Farm-fresh quality or your money back
         </p>
       </div>
@@ -62,8 +66,10 @@ const OurPolicy = () => {
             />
           </svg>
         </div>
-        <p className="font-bold text-green-900 text-lg">24/7 Support</p>
-        <p className="text-gray-600 mt-2">
+        <p className="font-bold text-green-900 dark:text-green-400 text-lg">
+          24/7 Support
+        </p>
+        <p className="text-gray-600 dark:text-slate-400 mt-2">
           We're here to help anytime you need
         </p>
       </div>

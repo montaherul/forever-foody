@@ -12,6 +12,15 @@ const ShopContextProvider = (props) => {
   const delivery_fee = 10;
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
   console.log(backendUrl);
+  const getInitialTheme = () => {
+    if (typeof window === "undefined") return "light";
+    const stored = localStorage.getItem("theme");
+    if (stored === "dark" || stored === "light") return stored;
+    return window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light";
+  };
+
   const [search, setSearch] = useState("");
   const [showSearch, setShowSearch] = useState(false);
   const [cartItems, setCartItems] = useState({});
@@ -24,6 +33,7 @@ const ShopContextProvider = (props) => {
   const [wishlist, setWishlist] = useState([]);
   const [compareList, setCompareList] = useState([]);
   const [cartDrawerOpen, setCartDrawerOpen] = useState(false);
+  const [theme, setTheme] = useState(getInitialTheme);
   const navigate = useNavigate();
 
   // Logout function with Firebase
@@ -206,6 +216,19 @@ const ShopContextProvider = (props) => {
       };
     }
 
+    // NEW: If product has sizes but no pricing, use base price for all sizes
+    if (product.sizes && product.sizes.length > 0 && !product.pricingId) {
+      const sizePricing = {};
+      product.sizes.forEach((size) => {
+        // Use the base price for each size variant
+        sizePricing[size] = product.price;
+      });
+      return {
+        ...product,
+        sizePricing,
+      };
+    }
+
     // Fallback: no pricing data
     return product;
   };
@@ -366,6 +389,17 @@ const ShopContextProvider = (props) => {
     setAuthChecked(true);
   }, []);
 
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+    const root = document.documentElement;
+    if (theme === "dark") {
+      root.classList.add("dark");
+    } else {
+      root.classList.remove("dark");
+    }
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
   // Fetch cart and profile when token changes
   useEffect(() => {
     if (token) {
@@ -411,6 +445,8 @@ const ShopContextProvider = (props) => {
     normalizePricing,
     cartDrawerOpen,
     toggleCartDrawer,
+    theme,
+    toggleTheme: () => setTheme((prev) => (prev === "dark" ? "light" : "dark")),
   };
   return (
     <ShopContext.Provider value={value}>{props.children}</ShopContext.Provider>

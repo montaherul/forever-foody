@@ -16,6 +16,8 @@ const NavBar = () => {
     user,
     logout,
     toggleCartDrawer,
+    theme,
+    toggleTheme,
   } = useContext(ShopContext);
   const openCartDrawer = () => {
     setVisible(false);
@@ -23,7 +25,7 @@ const NavBar = () => {
   };
   return (
     <>
-      <div className="flex items-center justify-between py-3 sm:py-4 px-3 sm:px-6 lg:px-8 font-medium sticky top-0 bg-white z-40 shadow-md border-b border-green-100">
+      <div className="flex items-center justify-between py-3 sm:py-4 px-3 sm:px-6 lg:px-8 font-medium sticky top-0 bg-white dark:bg-slate-900 dark:text-slate-100 z-40 shadow-md dark:shadow-slate-900/60 border-b border-green-100 dark:border-slate-800 transition-colors">
         {/* Logo */}
         <Link
           to="/"
@@ -40,7 +42,7 @@ const NavBar = () => {
         </Link>
 
         {/* Navigation Links */}
-        <ul className="hidden lg:flex gap-4 xl:gap-8 text-sm font-semibold text-gray-700">
+        <ul className="hidden lg:flex gap-4 xl:gap-8 text-sm font-semibold text-gray-700 dark:text-slate-200">
           <li>
             <NavLink
               to="/"
@@ -112,7 +114,7 @@ const NavBar = () => {
 
         {/* Search bar (desktop) */}
         <div className="hidden lg:block flex-1 max-w-xl px-4 xl:px-6">
-          <div className="flex items-center gap-2 bg-gray-50 border border-gray-200 rounded-full px-3 xl:px-4 py-1.5 xl:py-2 hover:border-green-300 transition-colors">
+          <div className="flex items-center gap-2 bg-gray-50 dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-full px-3 xl:px-4 py-1.5 xl:py-2 hover:border-green-300 dark:hover:border-green-400 transition-colors">
             <img
               src={assets.search_icon}
               className="w-4 xl:w-5 flex-shrink-0"
@@ -131,7 +133,7 @@ const NavBar = () => {
                   navigate("/collection");
                 }
               }}
-              className="flex-1 bg-transparent outline-none text-sm placeholder:text-gray-500"
+              className="flex-1 bg-transparent outline-none text-sm placeholder:text-gray-500 dark:text-slate-100 dark:placeholder:text-slate-400"
               placeholder="Search products, categories..."
             />
             {search && (
@@ -186,23 +188,23 @@ const NavBar = () => {
                 )}
               </div>
               <div className="hidden group-hover:block absolute right-0 pt-4 z-50">
-                <div className="flex flex-col gap-2 w-44 sm:w-48 py-3 px-4 sm:px-5 bg-white shadow-xl rounded-lg border border-green-100">
+                <div className="flex flex-col gap-2 w-44 sm:w-48 py-3 px-4 sm:px-5 bg-white dark:bg-slate-800 shadow-xl rounded-lg border border-green-100 dark:border-slate-700 transition-colors">
                   <Link
                     to="/profile"
-                    className="cursor-pointer hover:text-green-600 font-medium text-sm text-gray-700 hover:bg-green-50 px-2 py-1.5 rounded transition-colors flex items-center gap-2"
+                    className="cursor-pointer hover:text-green-600 dark:hover:text-green-400 font-medium text-sm text-gray-700 dark:text-slate-100 hover:bg-green-50 dark:hover:bg-slate-700 px-2 py-1.5 rounded transition-colors flex items-center gap-2"
                   >
                     My Profile
                   </Link>
                   <p
                     onClick={() => navigate("/orders")}
-                    className="cursor-pointer hover:text-green-600 font-medium text-sm text-gray-700 hover:bg-green-50 px-2 py-1.5 rounded transition-colors flex items-center gap-2"
+                    className="cursor-pointer hover:text-green-600 dark:hover:text-green-400 font-medium text-sm text-gray-700 dark:text-slate-100 hover:bg-green-50 dark:hover:bg-slate-700 px-2 py-1.5 rounded transition-colors flex items-center gap-2"
                   >
                     My Orders
                   </p>
                   <hr className="border-gray-200" />
                   <p
                     onClick={logout}
-                    className="cursor-pointer hover:text-red-600 font-medium text-sm text-gray-700 hover:bg-red-50 px-2 py-1.5 rounded transition-colors flex items-center gap-2"
+                    className="cursor-pointer hover:text-red-600 font-medium text-sm text-gray-700 dark:text-slate-100 hover:bg-red-50 dark:hover:bg-slate-700 px-2 py-1.5 rounded transition-colors flex items-center gap-2"
                   >
                     Logout
                   </p>
@@ -217,6 +219,18 @@ const NavBar = () => {
               Login
             </button>
           )}
+
+          {/* Theme Toggle */}
+          <button
+            onClick={toggleTheme}
+            className="flex items-center justify-center w-9 h-9 rounded-full border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-xl hover:scale-110 transition-all"
+            title={
+              theme === "dark" ? "Switch to light mode" : "Switch to dark mode"
+            }
+            aria-label="Toggle color theme"
+          >
+            {theme === "dark" ? "☀️" : "🌙"}
+          </button>
 
           {/* Cart Icon with Badge */}
           <button
@@ -250,7 +264,7 @@ const NavBar = () => {
 
       {/* Mobile Menu Sidebar */}
       <div
-        className={`fixed top-0 right-0 bottom-0 overflow-hidden bg-white transition-all duration-300 z-50 shadow-2xl ${
+        className={`fixed top-0 right-0 bottom-0 overflow-hidden bg-white dark:bg-slate-900 dark:text-slate-100 transition-all duration-300 z-50 shadow-2xl ${
           visible ? "w-full" : "w-0"
         }`}
       >
@@ -273,10 +287,10 @@ const NavBar = () => {
             <NavLink
               onClick={() => setVisible(false)}
               className={({ isActive }) =>
-                `py-4 pl-6 border-b border-gray-100 font-medium transition-colors ${
+                `py-4 pl-6 border-b border-gray-100 dark:border-slate-800 font-medium transition-colors ${
                   isActive
-                    ? "bg-green-50 text-green-600 border-l-4 border-l-green-600"
-                    : "text-gray-700 hover:bg-green-50"
+                    ? "bg-green-50 dark:bg-slate-800 text-green-600 border-l-4 border-l-green-600"
+                    : "text-gray-700 dark:text-slate-100 hover:bg-green-50 dark:hover:bg-slate-800"
                 }`
               }
               to="/"
@@ -286,10 +300,10 @@ const NavBar = () => {
             <NavLink
               onClick={() => setVisible(false)}
               className={({ isActive }) =>
-                `py-4 pl-6 border-b border-gray-100 font-medium transition-colors ${
+                `py-4 pl-6 border-b border-gray-100 dark:border-slate-800 font-medium transition-colors ${
                   isActive
-                    ? "bg-green-50 text-green-600 border-l-4 border-l-green-600"
-                    : "text-gray-700 hover:bg-green-50"
+                    ? "bg-green-50 dark:bg-slate-800 text-green-600 border-l-4 border-l-green-600"
+                    : "text-gray-700 dark:text-slate-100 hover:bg-green-50 dark:hover:bg-slate-800"
                 }`
               }
               to="/collection"
@@ -299,10 +313,10 @@ const NavBar = () => {
             <NavLink
               onClick={() => setVisible(false)}
               className={({ isActive }) =>
-                `py-4 pl-6 border-b border-gray-100 font-medium transition-colors ${
+                `py-4 pl-6 border-b border-gray-100 dark:border-slate-800 font-medium transition-colors ${
                   isActive
-                    ? "bg-green-50 text-green-600 border-l-4 border-l-green-600"
-                    : "text-gray-700 hover:bg-green-50"
+                    ? "bg-green-50 dark:bg-slate-800 text-green-600 border-l-4 border-l-green-600"
+                    : "text-gray-700 dark:text-slate-100 hover:bg-green-50 dark:hover:bg-slate-800"
                 }`
               }
               to="/about"
@@ -312,10 +326,10 @@ const NavBar = () => {
             <NavLink
               onClick={() => setVisible(false)}
               className={({ isActive }) =>
-                `py-4 pl-6 border-b border-gray-100 font-medium transition-colors ${
+                `py-4 pl-6 border-b border-gray-100 dark:border-slate-800 font-medium transition-colors ${
                   isActive
-                    ? "bg-green-50 text-green-600 border-l-4 border-l-green-600"
-                    : "text-gray-700 hover:bg-green-50"
+                    ? "bg-green-50 dark:bg-slate-800 text-green-600 border-l-4 border-l-green-600"
+                    : "text-gray-700 dark:text-slate-100 hover:bg-green-50 dark:hover:bg-slate-800"
                 }`
               }
               to="/contact"
@@ -326,10 +340,10 @@ const NavBar = () => {
               <NavLink
                 onClick={() => setVisible(false)}
                 className={({ isActive }) =>
-                  `py-4 pl-6 border-b border-gray-100 font-medium transition-colors ${
+                  `py-4 pl-6 border-b border-gray-100 dark:border-slate-800 font-medium transition-colors ${
                     isActive
-                      ? "bg-green-50 text-green-600 border-l-4 border-l-green-600"
-                      : "text-gray-700 hover:bg-green-50"
+                      ? "bg-green-50 dark:bg-slate-800 text-green-600 border-l-4 border-l-green-600"
+                      : "text-gray-700 dark:text-slate-100 hover:bg-green-50 dark:hover:bg-slate-800"
                   }`
                 }
                 to="/orders"
@@ -340,7 +354,7 @@ const NavBar = () => {
           </nav>
 
           {/* Mobile Menu Footer - Login/Logout */}
-          <div className="p-4 border-t border-gray-200">
+          <div className="p-4 border-t border-gray-200 dark:border-slate-800">
             {token ? (
               <button
                 onClick={() => {

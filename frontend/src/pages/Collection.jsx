@@ -142,12 +142,14 @@ const Collection = () => {
   };
 
   return (
-    <div className="flex flex-col sm:flex-row gap-6 pt-10 border-t">
+    <div className="flex flex-col sm:flex-row gap-6 pt-10 border-t dark:border-slate-800">
       {/* Filter Sidebar */}
       <div className="min-w-72">
-        <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-2xl p-6 shadow-lg border-2 border-green-200">
+        <div className="bg-gradient-to-br from-green-50 to-green-100 dark:from-slate-800 dark:to-slate-900 rounded-2xl p-6 shadow-lg border-2 border-green-200 dark:border-slate-700">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold text-green-900">FILTERS</h2>
+            <h2 className="text-2xl font-bold text-green-900 dark:text-green-400">
+              FILTERS
+            </h2>
             <button
               onClick={() => setShowFilter(!showFilter)}
               className="sm:hidden bg-green-600 text-white p-2 rounded-lg hover:bg-green-700 transition-colors"
@@ -178,7 +180,7 @@ const Collection = () => {
                 <button
                   key={cat}
                   onClick={() => toggleValue(cat, category, setCategory)}
-                  className="flex items-center gap-2 px-3 py-1 rounded-full bg-green-50 text-green-700 border border-green-200 text-xs font-semibold"
+                  className="flex items-center gap-2 px-3 py-1 rounded-full bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-400 border border-green-200 dark:border-green-700 text-xs font-semibold"
                 >
                   {cat} ✕
                 </button>
@@ -187,7 +189,7 @@ const Collection = () => {
                 <button
                   key={sub}
                   onClick={() => toggleValue(sub, subCategory, setSubCategory)}
-                  className="flex items-center gap-2 px-3 py-1 rounded-full bg-orange-50 text-orange-700 border border-orange-200 text-xs font-semibold"
+                  className="flex items-center gap-2 px-3 py-1 rounded-full bg-orange-50 dark:bg-orange-900/30 text-orange-700 dark:text-orange-400 border border-orange-200 dark:border-orange-700 text-xs font-semibold"
                 >
                   {sub} ✕
                 </button>
@@ -197,15 +199,15 @@ const Collection = () => {
 
           {/* Category Filter */}
           <div className={`${showFilter ? "" : "hidden"} sm:block space-y-4`}>
-            <div className="bg-white rounded-xl p-5 shadow-md">
-              <h3 className="font-bold text-lg text-gray-800 mb-4 flex items-center gap-2">
+            <div className="bg-white dark:bg-slate-800 rounded-xl p-5 shadow-md border dark:border-slate-700">
+              <h3 className="font-bold text-lg text-gray-800 dark:text-slate-100 mb-4 flex items-center gap-2">
                 CATEGORIES
               </h3>
               <div className="space-y-3 max-h-80 overflow-y-auto">
                 {categories.map((cat) => (
                   <label
                     key={cat.name}
-                    className="flex items-center gap-3 p-2 rounded-lg hover:bg-green-50 transition-colors cursor-pointer group"
+                    className="flex items-center gap-3 p-2 rounded-lg hover:bg-green-50 dark:hover:bg-slate-700 transition-colors cursor-pointer group"
                   >
                     <input
                       className="w-5 h-5 text-green-600 rounded border-gray-300 focus:ring-green-500 cursor-pointer"
@@ -215,7 +217,7 @@ const Collection = () => {
                       checked={category.includes(cat.name)}
                     />
                     <span className="text-xl">{cat.icon}</span>
-                    <span className="text-sm font-medium text-gray-700 group-hover:text-green-700">
+                    <span className="text-sm font-medium text-gray-700 dark:text-slate-200 group-hover:text-green-700 dark:group-hover:text-green-400">
                       {cat.name}
                     </span>
                   </label>
@@ -232,7 +234,7 @@ const Collection = () => {
                 {subcategories.map((subCat) => (
                   <label
                     key={subCat}
-                    className="flex items-center gap-3 p-2 rounded-lg hover:bg-orange-50 transition-colors cursor-pointer group"
+                    className="flex items-center gap-3 p-2 rounded-lg hover:bg-orange-50 dark:hover:bg-slate-700 transition-colors cursor-pointer group"
                   >
                     <input
                       className="w-5 h-5 text-orange-600 rounded border-gray-300 focus:ring-orange-500 cursor-pointer"
@@ -241,7 +243,7 @@ const Collection = () => {
                       value={subCat}
                       checked={subcategory.includes(subCat)}
                     />
-                    <span className="text-sm font-medium text-gray-700 group-hover:text-orange-700">
+                    <span className="text-sm font-medium text-gray-700 dark:text-slate-200 group-hover:text-orange-700 dark:group-hover:text-orange-400">
                       {subCat}
                     </span>
                   </label>
@@ -250,28 +252,32 @@ const Collection = () => {
             </div>
 
             {/* Price Filter */}
-            <div className="bg-white rounded-xl p-5 shadow-md">
-              <h3 className="font-bold text-lg text-gray-800 mb-4 flex items-center gap-2">
+            <div className="bg-white dark:bg-slate-800 rounded-xl p-5 shadow-md border dark:border-slate-700">
+              <h3 className="font-bold text-lg text-gray-800 dark:text-slate-100 mb-4 flex items-center gap-2">
                 PRICE
               </h3>
               <div className="space-y-3">
-                <div className="flex items-center gap-3 text-sm text-gray-700">
+                <div className="flex items-center gap-3 text-sm text-gray-700 dark:text-slate-300">
                   <div className="flex items-center gap-2">
-                    <span className="text-gray-500">Min</span>
+                    <span className="text-gray-500 dark:text-slate-400">
+                      Min
+                    </span>
                     <input
                       type="number"
                       min="0"
-                      className="w-24 px-2 py-1 border rounded"
+                      className="w-24 px-2 py-1 border dark:border-slate-600 rounded dark:bg-slate-700 dark:text-slate-100"
                       value={minPrice}
                       onChange={(e) => setMinPrice(Number(e.target.value) || 0)}
                     />
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="text-gray-500">Max</span>
+                    <span className="text-gray-500 dark:text-slate-400">
+                      Max
+                    </span>
                     <input
                       type="number"
                       min="0"
-                      className="w-24 px-2 py-1 border rounded"
+                      className="w-24 px-2 py-1 border dark:border-slate-600 rounded dark:bg-slate-700 dark:text-slate-100"
                       value={maxPrice}
                       onChange={(e) => setMaxPrice(Number(e.target.value) || 0)}
                     />
@@ -286,7 +292,7 @@ const Collection = () => {
                   onChange={(e) => setMaxPrice(Number(e.target.value) || 0)}
                   className="w-full accent-green-600"
                 />
-                <p className="text-xs text-gray-500">
+                <p className="text-xs text-gray-500 dark:text-slate-400">
                   Showing items between ${minPrice} and ${maxPrice}
                 </p>
               </div>
@@ -301,7 +307,7 @@ const Collection = () => {
         <div className="flex justify-between items-center mb-8">
           <div>
             <Title text1={"ALL"} text2={"PRODUCTS"} />
-            <p className="text-sm text-gray-600 mt-2">
+            <p className="text-sm text-gray-600 dark:text-slate-300 mt-2">
               {filterProducts.length} items across grocery, electronics, and
               fashion
             </p>
@@ -310,7 +316,7 @@ const Collection = () => {
           <select
             onChange={(e) => setSortType(e.target.value)}
             value={sortType}
-            className="border-2 border-green-400 text-sm px-4 py-3 rounded-lg bg-white font-semibold text-gray-700 hover:border-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all cursor-pointer shadow-md"
+            className="border-2 border-green-400 dark:border-green-600 text-sm px-4 py-3 rounded-lg bg-white dark:bg-slate-800 dark:text-slate-100 font-semibold text-gray-700 dark:text-slate-200 hover:border-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all cursor-pointer shadow-md"
           >
             <option value="relevant">Sort: Relevant</option>
             <option value="low-high">Sort: Low to High</option>
@@ -339,14 +345,14 @@ const Collection = () => {
             ))}
           </div>
         ) : (
-          <div className="text-center py-20 bg-gray-50 rounded-2xl">
-            <div className="text-6xl mb-4 text-gray-300 font-bold">
+          <div className="text-center py-20 bg-gray-50 dark:bg-slate-800 rounded-2xl">
+            <div className="text-6xl mb-4 text-gray-300 dark:text-slate-600 font-bold">
               No Results
             </div>
-            <h3 className="text-2xl font-bold text-gray-800 mb-2">
+            <h3 className="text-2xl font-bold text-gray-800 dark:text-slate-100 mb-2">
               No products found
             </h3>
-            <p className="text-gray-600 mb-6">
+            <p className="text-gray-600 dark:text-slate-300 mb-6">
               Try adjusting your filters or search terms
             </p>
             <button

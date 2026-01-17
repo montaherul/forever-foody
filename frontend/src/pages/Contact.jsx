@@ -18,9 +18,9 @@ const Contact = () => {
 
   return (
     <div>
-      <div className="text-center text-3xl pt-10 pb-6 border-t">
+      <div className="text-center text-3xl pt-10 pb-6 border-t dark:border-slate-800">
         <Title text1={"CONTACT"} text2={"US"} />
-        <p className="text-sm text-gray-600 mt-3">
+        <p className="text-sm text-gray-600 dark:text-slate-300 mt-3">
           We'd love to hear from you!
         </p>
       </div>
@@ -36,11 +36,11 @@ const Contact = () => {
         </div>
 
         <div className="flex flex-col justify-center gap-8">
-          <div className="bg-gradient-to-br from-green-50 to-green-100 p-8 rounded-2xl shadow-lg border-2 border-green-200">
-            <p className="font-bold text-2xl text-green-900 mb-4 flex items-center gap-2">
+          <div className="bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20 p-8 rounded-2xl shadow-lg border-2 border-green-200 dark:border-green-700">
+            <p className="font-bold text-2xl text-green-900 dark:text-green-400 mb-4 flex items-center gap-2">
               Our Store
             </p>
-            <p className="text-gray-700 leading-relaxed mb-4">
+            <p className="text-gray-700 dark:text-slate-300 leading-relaxed mb-4">
               <span className="font-semibold">Address:</span>
               <br />
               54709 Willms Station
@@ -55,11 +55,11 @@ const Contact = () => {
             </p>
           </div>
 
-          <div className="bg-gradient-to-br from-orange-50 to-orange-100 p-8 rounded-2xl shadow-lg border-2 border-orange-200">
-            <p className="font-bold text-2xl text-orange-900 mb-4 flex items-center gap-2">
+          <div className="bg-gradient-to-br from-orange-50 to-orange-100 dark:from-orange-900/20 dark:to-orange-800/20 p-8 rounded-2xl shadow-lg border-2 border-orange-200 dark:border-orange-700">
+            <p className="font-bold text-2xl text-orange-900 dark:text-orange-400 mb-4 flex items-center gap-2">
               Join Our Team
             </p>
-            <p className="text-gray-700 leading-relaxed mb-4">
+            <p className="text-gray-700 dark:text-slate-300 leading-relaxed mb-4">
               Want to be part of the fresh food revolution? We're always looking
               for passionate people to join our growing team!
             </p>
@@ -68,11 +68,11 @@ const Contact = () => {
             </button>
           </div>
 
-          <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-8 rounded-2xl shadow-lg border-2 border-blue-200">
-            <p className="font-bold text-2xl text-blue-900 mb-4 flex items-center gap-2">
+          <div className="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 p-8 rounded-2xl shadow-lg border-2 border-blue-200 dark:border-blue-700">
+            <p className="font-bold text-2xl text-blue-900 dark:text-blue-400 mb-4 flex items-center gap-2">
               Business Hours
             </p>
-            <div className="text-gray-700 leading-relaxed space-y-2">
+            <div className="text-gray-700 dark:text-slate-300 leading-relaxed space-y-2">
               <p>
                 <span className="font-semibold">Monday - Friday:</span> 8:00 AM
                 - 8:00 PM
@@ -90,8 +90,8 @@ const Contact = () => {
         </div>
       </div>
 
-      <div className="bg-gradient-to-r from-green-100 to-orange-100 rounded-2xl p-10 mb-12">
-        <h3 className="text-3xl font-bold text-center text-green-900 mb-8">
+      <div className="bg-gradient-to-r from-green-100 to-orange-100 dark:from-green-900/20 dark:to-orange-900/20 rounded-2xl p-10 mb-12 border dark:border-slate-700">
+        <h3 className="text-3xl font-bold text-center text-green-900 dark:text-green-400 mb-8">
           Send Us a Message
         </h3>
         <form onSubmit={handleSubmit} className="max-w-2xl mx-auto space-y-6">

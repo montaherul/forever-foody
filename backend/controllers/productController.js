@@ -212,6 +212,32 @@ const addProduct = async (req, res) => {
       }
     }
 
+    // NEW: Auto-create pricing record for products with multiple sizes (no custom pricing)
+    if (!pricingId && parsedSizes.length > 1) {
+      try {
+        // Create equal pricing for all sizes using base price
+        const sizesArray = parsedSizes.map((size) => ({
+          size,
+          price: Number(price),
+        }));
+
+        const basePrice = Number(price);
+
+        const pricingData = {
+          productId: null, // Will be set after product is created
+          basePrice,
+          sizes: sizesArray,
+          updatedBy: req.headers.admin || "system",
+        };
+
+        const pricingRecord = new pricingModel(pricingData);
+        const savedPricing = await pricingRecord.save();
+        pricingId = savedPricing._id;
+      } catch (error) {
+        console.log("Auto-pricing creation error:", error);
+      }
+    }
+
     // Add pricingId to product data
     if (pricingId) {
       productData.pricingId = pricingId;
@@ -411,6 +437,41 @@ const updateProduct = async (req, res) => {
       }
     }
 
+    // NEW: Auto-create/update pricing record for products with multiple sizes (no custom pricing)
+    if (!sizePricing && parsedSizes.length > 1) {
+      try {
+        // Create equal pricing for all sizes using base price
+        const sizesArray = parsedSizes.map((size) => ({
+          size,
+          price: Number(price),
+        }));
+
+        const basePrice = Number(price);
+
+        if (existingProduct.pricingId) {
+          // Update existing pricing record
+          await pricingModel.findByIdAndUpdate(existingProduct.pricingId, {
+            basePrice,
+            sizes: sizesArray,
+            updatedBy: req.headers.admin || "system",
+          });
+        } else {
+          // Create new pricing record
+          const pricingData = {
+            productId: id,
+            basePrice,
+            sizes: sizesArray,
+            updatedBy: req.headers.admin || "system",
+          };
+          const pricingRecord = new pricingModel(pricingData);
+          const savedPricing = await pricingRecord.save();
+          updateData.pricingId = savedPricing._id;
+        }
+      } catch (error) {
+        console.log("Auto-pricing update error:", error);
+      }
+    }
+
     // Handle new images if uploaded - MERGE with existing images
     const finalImages = [...(existingProduct.images || [])]; // Start with existing images
 
@@ -486,6 +547,9 @@ const singleProduct = async (req, res) => {
     res.json({ success: false, message: error.message });
   }
 };
+// GET all products
+
+
 
 export {
   addProduct,
@@ -493,4 +557,5 @@ export {
   removeProduct,
   singleProduct,
   updateProduct,
+  syncProductsToJSON,
 };

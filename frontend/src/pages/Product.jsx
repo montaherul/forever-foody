@@ -5,6 +5,7 @@ import { assets } from "../assets/assets";
 import RelatedProducts from "../components/RelatedProducts";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Product = () => {
   const { productId } = useParams();
@@ -167,7 +168,12 @@ const Product = () => {
     Number(productData?.stockQuantity ?? 0) > 0;
 
   return productData ? (
-    <div className="border-t-2 pt-10 transition-opacity ease-in duration-500 opacity-100">
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className="border-t-2 pt-10"
+    >
       {/* Product Section */}
       <div className="flex flex-col lg:flex-row gap-12 bg-white rounded-2xl shadow-lg p-8">
         {/* Left Section: Images */}
@@ -196,7 +202,9 @@ const Product = () => {
           </div>
           {/* Main Image */}
           <div className="w-full sm:w-[80%] relative group">
-            <img
+            <motion.img
+              whileHover={{ scale: 1.08 }}
+              whileTap={{ scale: 0.95 }}
               src={image || "https://via.placeholder.com/500x500?text=No+Image"}
               className="w-full h-auto rounded-xl border-2 border-gray-100 shadow-xl hover:shadow-2xl transition-shadow duration-300"
               alt="Main Product"
@@ -348,7 +356,9 @@ const Product = () => {
                   const sizeSoldOut =
                     sizeQty !== undefined && Number(sizeQty) <= 0;
                   return (
-                    <button
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
                       onClick={() => setSize(item)}
                       key={index}
                       disabled={sizeSoldOut}
@@ -382,7 +392,7 @@ const Product = () => {
                           </span>
                         )}
                       </div>
-                    </button>
+                    </motion.button>
                   );
                 })}
               </div>
@@ -659,165 +669,54 @@ const Product = () => {
                   </button>
                 ))}
               </div>
+              <motion.div className="bg-white p-8 rounded-b-xl shadow-lg">
+                <AnimatePresence mode="wait">
+                  {activeTab === "description" && (
+                    <motion.div
+                      key="description"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -20 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      ...existing description content...
+                    </motion.div>
+                  )}
 
-              <div className="bg-white p-8 rounded-b-xl shadow-lg">
-                {activeTab === "description" && (
-                  <div className="space-y-4 text-gray-700 leading-relaxed">
-                    <p>
-                      {productData.description ||
-                        "Experience high-quality products delivered quickly with trusted support."}
-                    </p>
-                    {productData.origin && <p>Origin: {productData.origin}</p>}
-                    {productData.shelfLife && (
-                      <p>Shelf Life: {productData.shelfLife}</p>
-                    )}
-                    {productData.weight && <p>Weight: {productData.weight}</p>}
-                    {(productData.dimensions?.width ||
-                      productData.dimensions?.height ||
-                      productData.dimensions?.depth) && (
-                      <p>
-                        Dimensions: {productData.dimensions?.width || "?"} x{" "}
-                        {""}
-                        {productData.dimensions?.height || "?"} x {""}
-                        {productData.dimensions?.depth || "?"}
-                      </p>
-                    )}
-                    {productData.isOrganic && (
-                      <div className="bg-green-50 p-4 rounded-lg border-l-4 border-green-600">
-                        <p className="font-semibold text-green-800">
-                          Certified Organic Product
-                        </p>
-                      </div>
-                    )}
-                    {productData.warranty && isElectronics && (
-                      <div className="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
-                        <p className="font-semibold text-blue-800">
-                          Warranty: {productData.warranty}
-                        </p>
-                      </div>
-                    )}
-                  </div>
-                )}
+                  {activeTab === "specs" && (
+                    <motion.div
+                      key="specs"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0 }}
+                    >
+                      ...existing specs content...
+                    </motion.div>
+                  )}
 
-                {activeTab === "specs" && (
-                  <div className="space-y-4">
-                    {hasSpecs ? (
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        {specsEntries.map(([label, value]) => (
-                          <div
-                            key={label}
-                            className="border border-gray-200 rounded-lg p-4 bg-gray-50"
-                          >
-                            <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
-                              {label}
-                            </p>
-                            <p className="text-gray-800 font-semibold mt-1">
-                              {value}
-                            </p>
-                          </div>
-                        ))}
-                      </div>
-                    ) : (
-                      <p className="text-gray-600">
-                        Specifications not available for this product.
-                      </p>
-                    )}
-                  </div>
-                )}
+                  {activeTab === "nutrition" && (
+                    <motion.div
+                      key="nutrition"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0 }}
+                    >
+                      ...existing nutrition content...
+                    </motion.div>
+                  )}
 
-                {activeTab === "nutrition" && (
-                  <div className="space-y-4">
-                    {hasNutrition && productData.nutritionInfo ? (
-                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <div className="bg-green-50 p-6 rounded-xl text-center border-2 border-green-200">
-                          <p className="text-3xl font-bold text-green-700">
-                            {productData.nutritionInfo.calories}
-                          </p>
-                          <p className="text-gray-600 mt-2">Calories</p>
-                        </div>
-                        <div className="bg-orange-50 p-6 rounded-xl text-center border-2 border-orange-200">
-                          <p className="text-3xl font-bold text-orange-700">
-                            {productData.nutritionInfo.protein}
-                          </p>
-                          <p className="text-gray-600 mt-2">Protein</p>
-                        </div>
-                        <div className="bg-blue-50 p-6 rounded-xl text-center border-2 border-blue-200">
-                          <p className="text-3xl font-bold text-blue-700">
-                            {productData.nutritionInfo.carbs}
-                          </p>
-                          <p className="text-gray-600 mt-2">Carbs</p>
-                        </div>
-                        <div className="bg-yellow-50 p-6 rounded-xl text-center border-2 border-yellow-200">
-                          <p className="text-3xl font-bold text-yellow-700">
-                            {productData.nutritionInfo.fat}
-                          </p>
-                          <p className="text-gray-600 mt-2">Fat</p>
-                        </div>
-                      </div>
-                    ) : (
-                      <p className="text-gray-600">
-                        Nutrition information not available for this product.
-                      </p>
-                    )}
-                  </div>
-                )}
-
-                {activeTab === "reviews" && (
-                  <div className="space-y-6">
-                    {reviews.length === 0 ? (
-                      <p className="text-gray-600 text-center py-4">
-                        No reviews yet. Be the first to share your thoughts!
-                      </p>
-                    ) : (
-                      reviews.map((rev, idx) => {
-                        // Ensure rating is a valid number between 1-5
-                        const ratingNumber = Math.max(
-                          1,
-                          Math.min(5, Number(rev.rating) || 0)
-                        );
-
-                        return (
-                          <div
-                            key={rev._id || idx}
-                            className="border border-gray-200 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow"
-                          >
-                            <div className="flex items-center justify-between mb-2">
-                              <div>
-                                <p className="font-semibold text-gray-800">
-                                  {rev.userName || "Customer"}
-                                </p>
-                                <p className="text-xs text-gray-500">
-                                  {rev.createdAt
-                                    ? new Date(
-                                        rev.createdAt
-                                      ).toLocaleDateString("en-US", {
-                                        year: "numeric",
-                                        month: "short",
-                                        day: "numeric",
-                                      })
-                                    : "Recently"}
-                                </p>
-                              </div>
-                              <div className="flex items-center gap-1">
-                                <p className="text-yellow-500 text-lg">
-                                  {"★".repeat(ratingNumber)}
-                                  {"☆".repeat(5 - ratingNumber)}
-                                </p>
-                                <span className="text-sm text-gray-600 ml-1">
-                                  ({ratingNumber}/5)
-                                </span>
-                              </div>
-                            </div>
-                            <p className="text-gray-700 leading-relaxed">
-                              {rev.comment}
-                            </p>
-                          </div>
-                        );
-                      })
-                    )}
-                  </div>
-                )}
-              </div>
+                  {activeTab === "reviews" && (
+                    <motion.div
+                      key="reviews"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0 }}
+                    >
+                      ...existing reviews content...
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
             </>
           );
         })()}
@@ -898,15 +797,11 @@ const Product = () => {
           </button>
         </div>
       </div>
-    </div>
+    </motion.div>
   ) : (
-    <div className="flex items-center justify-center h-96">
-      <div className="text-center">
-        <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-green-600 mx-auto"></div>
-        <p className="text-gray-600 mt-4">Loading product...</p>
-      </div>
-    </div>
+    <p className="text-gray-600 dark:text-slate-400 mt-4">Loading product...</p>
   );
 };
 
 export default Product;
+

@@ -11,10 +11,10 @@ const BestSeller = () => {
     setBestSeller(bestProduct.slice(0, 5));
   }, [products]);
   return (
-    <div className="my-10 bg-gradient-to-b from-white to-green-50 py-10 rounded-2xl">
+    <div className="my-10 bg-gradient-to-b from-white to-green-50 dark:from-slate-900 dark:to-slate-800 py-10 rounded-2xl">
       <div className="text-center text-3xl py-8">
         <Title text1={"TOP"} text2={"PICKS"} />
-        <p className="w-3/4 m-auto text-xs sm:text-sm md:text-base text-gray-600 mt-4">
+        <p className="w-3/4 m-auto text-xs sm:text-sm md:text-base text-gray-600 dark:text-slate-300 mt-4">
           Customer favorites across grocery, electronics, and fashion. Trusted
           deals that sell out fast.
         </p>
@@ -31,6 +31,9 @@ const BestSeller = () => {
             sizePricing={item.sizePricing}
             sizes={item.sizes}
             category={item.category}
+            inStock={item.inStock}
+            stockQuantity={item.stockQuantity}
+            sizeStock={item.sizeStock}
           />
         ))}
       </div>

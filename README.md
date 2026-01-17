@@ -6,7 +6,7 @@ This project is a fully functional e-commerce website built using the MERN (Mong
 
 ## UI/UX Design Blueprint
 
-For detailed UI/UX design specifications, wireframes, component maps, and implementation guidelines, refer to the [UI_UX_DESIGN_BLUEPRINT.md](UI_UX_DESIGN_BLUEPRINT.md) file. This document provides a comprehensive design guide for the Smart Grocery & Food E-Commerce Website, including:
+For detailed UI/UX design specifications, wireframes, component maps, and implementation guidelines, refer to the file. This document provides a comprehensive design guide for the Smart Grocery & Food E-Commerce Website, including:
 
 - Global design principles and color schemes
 - Page-by-page wireframes for User and Admin interfaces
@@ -41,7 +41,7 @@ For detailed UI/UX design specifications, wireframes, component maps, and implem
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/mern-ecommerce.git
+   git clone https://github.com/montaherul/forever-main.git
    ```
 2. Navigate to the project directory:
    ```bash
@@ -87,4 +87,3 @@ To deploy the project on Vercel:
 1. Push the code to GitHub.
 2. Connect the repository to Vercel.
 3. Deploy both the frontend and backend separately.
-

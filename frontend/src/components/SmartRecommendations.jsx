@@ -42,6 +42,9 @@ const SmartRecommendations = () => {
             sizePricing={item.sizePricing}
             sizes={item.sizes}
             category={item.category}
+            inStock={item.inStock}
+            stockQuantity={item.stockQuantity}
+            sizeStock={item.sizeStock}
           />
         ))}
       </div>

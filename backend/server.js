@@ -1,7 +1,8 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-
+import path from "path";
+import { fileURLToPath } from "url";
 import connectDB from "./config/mongodb.js";
 
 import userRouter from "./routes/userRoute.js";
@@ -11,6 +12,8 @@ import orderRouter from "./routes/orderRoute.js";
 import couponRouter from "./routes/couponRoute.js";
 import reviewRouter from "./routes/reviewRoute.js";
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 // Load environment variables
 dotenv.config();
 
@@ -24,12 +27,13 @@ connectDB();
 // Middlewares
 app.use(express.json({ limit: "50mb" })); // Increase limit for base64 images
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // CORS Configuration
 const corsOptions = {
   origin: [
-    "https://forever-frontend.vercel.app",
-    "https://forever-admin.vercel.app",
+    "https://forever-main-f.vercel.app/",
+    "https://forever-main-admin-p.vercel.app/",
     "http://localhost:5173",
     "http://localhost:5174",
     "http://localhost:3000",
@@ -93,5 +97,6 @@ app.use((error, req, res, next) => {
 app.listen(port, () => {
   console.log("Server started on port:", port);
 });
+
 
 export default app;

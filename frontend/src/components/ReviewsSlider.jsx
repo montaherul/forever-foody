@@ -70,63 +70,68 @@ const ReviewsSlider = () => {
     }, 5000);
   };
 
-  if (loading) {
-    return (
-      <div className="bg-gradient-to-r from-green-50 to-white rounded-2xl p-6 shadow-lg border-2 border-green-100 h-32 flex items-center justify-center">
-        <p className="text-gray-500">Loading customer reviews...</p>
-      </div>
-    );
-  }
+ if (loading) {
+   return (
+     <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-6 shadow-xl border border-slate-700 h-32 flex items-center justify-center">
+       <p className="text-slate-400">Loading customer reviews...</p>
+     </div>
+   );
+ }
 
-  if (!reviews.length) {
-    return (
-      <div className="bg-gradient-to-r from-green-50 to-white rounded-2xl p-6 shadow-lg border-2 border-green-100">
-        <p className="text-gray-600 text-center">
-          No customer reviews yet. Be the first to review!
-        </p>
-      </div>
-    );
-  }
+ if (!reviews.length) {
+   return (
+     <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-6 shadow-xl border border-slate-700">
+       <p className="text-slate-400 text-center">
+         No customer reviews yet. Be the first to review!
+       </p>
+     </div>
+   );
+ }
+
 
   const review = reviews[index];
-  const ratingNumber = Number(review.rating) || 5;
-
-  return (
-    <div className="bg-gradient-to-r from-green-50 to-white rounded-2xl p-8 shadow-lg border-2 border-green-100 overflow-hidden">
-      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+  const ratingNumber = Number(review.rating) || 5;return (
+    <div
+      className="bg-gradient-to-br from-green-50 via-white to-green-50 
+                  dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 
+                  rounded-2xl p-8 shadow-2xl border border-green-100 dark:border-slate-700 
+                  overflow-hidden backdrop-blur-xl"
+    >
+      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
         {/* Review Content */}
         <div className="flex-1">
-          <div className="mb-4">
-            <p className="text-sm text-gray-500 font-semibold uppercase tracking-wide mb-3">
-              ⭐ Customer Stories
-            </p>
-            <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-4 italic">
-              &quot;{review.comment}&quot;
-            </h3>
-          </div>
+          <p className="text-sm text-green-600 dark:text-green-400 font-semibold uppercase tracking-wide mb-3">
+            ⭐ Customer Stories
+          </p>
+
+          <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-slate-100 mb-5 italic leading-relaxed">
+            “{review.comment}”
+          </h3>
 
           {/* Reviewer Info */}
           <div className="space-y-2">
-            <p className="text-gray-800 font-semibold text-lg">
+            <p className="text-gray-800 dark:text-slate-200 font-semibold text-lg">
               {review.userName || "Anonymous Customer"}
             </p>
-            <div className="flex items-center gap-1">
-              <span className="text-yellow-500 text-xl">
+
+            <div className="flex items-center gap-2">
+              <span className="text-yellow-400 text-xl">
                 {"★".repeat(ratingNumber)}
                 {"☆".repeat(5 - ratingNumber)}
               </span>
-              <span className="text-gray-600 text-sm ml-2">
+              <span className="text-gray-500 dark:text-slate-400 text-sm">
                 ({ratingNumber}/5)
               </span>
             </div>
           </div>
         </div>
 
-        {/* Slide Navigation Dots */}
-        <div className="flex items-center gap-2 md:flex-col">
-          <span className="text-sm text-gray-600 mr-2 md:mr-0 md:mb-3">
+        {/* Navigation */}
+        <div className="flex items-center gap-3 md:flex-col">
+          <span className="text-sm text-gray-500 dark:text-slate-400">
             {index + 1} / {reviews.length}
           </span>
+
           <div className="flex md:flex-col gap-2">
             {reviews.map((_, i) => (
               <button
@@ -134,39 +139,34 @@ const ReviewsSlider = () => {
                 onClick={() => goToSlide(i)}
                 className={`rounded-full transition-all duration-300 ${
                   i === index
-                    ? "bg-green-600 h-3 w-8 md:w-3 md:h-8"
-                    : "bg-gray-300 h-2 w-6 md:w-2 md:h-6 hover:bg-gray-400"
+                    ? "bg-green-500 h-3 w-8 md:w-3 md:h-8 shadow-lg shadow-green-500/30"
+                    : "bg-gray-300 dark:bg-slate-600 h-2 w-6 md:w-2 md:h-6 hover:bg-gray-400 dark:hover:bg-slate-500"
                 }`}
                 title={`Review ${i + 1}`}
-              ></button>
+              />
             ))}
           </div>
         </div>
       </div>
 
-      {/* Auto-play indicator */}
-      <div className="mt-4 h-1 bg-gray-200 rounded-full overflow-hidden">
+      {/* Progress bar */}
+      <div className="mt-5 h-1.5 bg-gray-200 dark:bg-slate-700 rounded-full overflow-hidden">
         <div
-          className="h-full bg-green-500 rounded-full transition-all"
-          style={{
-            width: "100%",
-            animation: "shrink 5s linear forwards",
-          }}
-        ></div>
+          key={index}
+          className="h-full bg-gradient-to-r from-green-400 to-emerald-500 rounded-full"
+          style={{ animation: "shrink 5s linear forwards" }}
+        />
       </div>
 
       <style>{`
-        @keyframes shrink {
-          from {
-            width: 100%;
-          }
-          to {
-            width: 0%;
-          }
-        }
-      `}</style>
+      @keyframes shrink {
+        from { width: 100%; }
+        to { width: 0%; }
+      }
+    `}</style>
     </div>
   );
+
 };
 
 export default ReviewsSlider;

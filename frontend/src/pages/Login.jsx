@@ -220,16 +220,16 @@ const Login = () => {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-white flex items-center justify-center py-12 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-green-50 to-white dark:from-slate-900 dark:to-slate-950 flex items-center justify-center py-12 px-4">
       <div className="w-full max-w-md">
         {/* Card Container */}
-        <div className="bg-white rounded-lg shadow-xl p-8">
+        <div className="bg-white dark:bg-slate-800 rounded-lg shadow-xl p-8 border dark:border-slate-700">
           {/* Header */}
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold font-poppins text-gray-900 mb-2">
+            <h1 className="text-3xl font-bold font-poppins text-gray-900 dark:text-slate-100 mb-2">
               {currentState === "Login" ? "Welcome Back" : "Join Smart Grocery"}
             </h1>
-            <p className="text-gray-600 text-sm">
+            <p className="text-gray-600 dark:text-slate-300 text-sm">
               {currentState === "Login"
                 ? "Sign in to your account"
                 : "Create your account to start shopping"}
@@ -241,14 +241,14 @@ const Login = () => {
             {/* Name Field - Sign Up Only */}
             {currentState === "Sign Up" && (
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                <label className="block text-sm font-semibold text-gray-700 dark:text-slate-200 mb-2">
                   Full Name
                 </label>
                 <input
                   onChange={(e) => setName(e.target.value)}
                   value={name}
                   type="text"
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-green-600 focus:ring-2 focus:ring-green-100 transition-all"
+                  className="w-full px-4 py-3 border-2 border-gray-200 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 rounded-lg focus:outline-none focus:border-green-600 focus:ring-2 focus:ring-green-100 dark:focus:ring-green-900 transition-all"
                   placeholder="Enter your full name"
                   required
                 />
