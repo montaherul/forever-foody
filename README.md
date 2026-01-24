@@ -41,11 +41,11 @@ For detailed UI/UX design specifications, wireframes, component maps, and implem
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/montaherul/forever-main.git
+   git clone https://github.com/montaherul/forever.git
    ```
 2. Navigate to the project directory:
    ```bash
-   cd mern-ecommerce
+   cd forever
    ```
 3. Install dependencies for both frontend and backend:
    ```bash
@@ -67,7 +67,7 @@ For detailed UI/UX design specifications, wireframes, component maps, and implem
    ```
    ```bash
    cd admin
-   npm run start
+   npm start
    ```
 5. Open `http://localhost:5174/` in your browser.
 
